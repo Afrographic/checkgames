@@ -1,0 +1,52 @@
+{
+  "name": "Check_Games",
+  "author": {
+    "name": "Afrographix Studio",
+    "email": "bruneltesse@gmail.com"
+  },
+  "description": "Le Check Games est un jeu de carte tres populaire dans la culture camerounaise",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    ".": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "Check Games",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icon.ico"
+    },
+    
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "Check Games Uninstall",
+      "license": "licence.md",
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target":"deb",
+      "icon":"icon.png",
+      "category":"Utility"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "icon.png"
+    }
+  },
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "electron-packager": "^17.1.1",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "20.1.1",
+    "electron-builder": "^22.11.7"
+  }
+}

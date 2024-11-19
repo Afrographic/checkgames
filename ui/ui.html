@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1" />
+  <title>Check games</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="overlay.css" />
+  <link rel="stylesheet" href="lib/popper.css" />
+  <link rel="icon" href="cartes_images/icone.jpg" />
+  <script>
+    function $(target) {
+      return document.querySelector(target);
+    }
+    function $$(target) {
+      return document.querySelectorAll(target);
+    }
+    function ShowJcommandeCards() {
+      $(".alertBox").classList.add("alertBox_active");
+      $(".overlay").classList.add("overlay_active");
+    }
+    function moveJCommandeEndAndStopFront(carte_pc) {
+      let J_commandesArray = [];
+      let CarresSansJ = [];
+      let StopArray = [];
+      let deux_transparent = [];
+      let pic = [];
+      carte_pc.forEach(function (card_item) {
+        if (
+          card_item == 52 ||
+          card_item == 50 ||
+          card_item == 51 ||
+          card_item == 49
+        ) {
+          J_commandesArray.push(card_item);
+        } else if (
+          card_item == 1 ||
+          card_item == 2 ||
+          card_item == 3 ||
+          card_item == 4
+        ) {
+          StopArray.push(card_item);
+        } else if (
+          card_item == 5 ||
+          card_item == 6 ||
+          card_item == 7 ||
+          card_item == 8
+        ) {
+          deux_transparent.push(card_item);
+        } else if (
+          card_item == 25 ||
+          card_item == 26 ||
+          card_item == 27 ||
+          card_item == 28 ||
+          card_item == 53 ||
+          card_item == 54
+        ) {
+          pic.push(card_item);
+        } else {
+          CarresSansJ.push(card_item);
+        }
+      });
+
+      carte_pc = pic.concat(
+        StopArray.concat(
+          CarresSansJ.concat(deux_transparent.concat(J_commandesArray))
+        )
+      );
+
+      console.log(carte_pc);
+      return carte_pc;
+    }
+
+    let jCommande_correspondance = [];
+    let cardCorrespondance = [];
+    let transformX = 0;
+    let carteAMettreBanque = [];
+    let carteARamasser = 0;
+
+    function Start() {
+      $(".starter").classList.add("starter_inactive");
+      play_engage_sound();
+      play_playing_sound();
+      stop_home_sound();
+    }
+
+    function play_engage_sound() {
+      engage.volume = 0.3;
+      engage.play();
+    }
+
+    function play_playing_sound() {
+      playing.volume = 0.5;
+      playing.loop = true;
+      playing.play();
+    }
+
+    function stop_playing_sound() {
+      playing.currentTime = 0
+      playing.pause();
+    }
+
+    function stop_home_sound() {
+      home.currentTime = 0
+      home.pause();
+    }
+
+    function play_game_lost_sound() {
+      game_lost.loop = true;
+      game_lost.play();
+    }
+
+    function play_game_won_sound() {
+      game_won.loop = true;
+      game_won.play();
+    }
+
+    // Load audios files
+    let computer_play = new Audio("audios/computer_play.mp3");
+    let engage = new Audio("audios/engage.mp3");
+    let game_lost = new Audio("audios/game_lost.mp3");
+    let game_won = new Audio("audios/game_won.mp3");
+    let home = new Audio("audios/home.mp3");
+    let j_commande = new Audio("audios/j_commande.mp3");
+    let pique_computer = new Audio("audios/pique_computer.mp3");
+    let playing = new Audio("audios/playing.mp3");
+    let user_play = new Audio("audios/user_play.mp3");
+    let user_piocher = new Audio("audios/user_piocher.mp3");
+    let computer_piocher = new Audio("audios/computer_piocher.mp3");
+
+
+    let sounds = [computer_play, engage, game_lost, game_won, home, j_commande, pique_computer, playing, user_play, user_piocher, computer_piocher];
+
+    window.addEventListener("DOMContentLoaded", () => {
+      home.volume = 0.3;
+      home.loop = true;
+      home.play();
+      //computer_play.play();
+    })
+
+
+
+  </script>
+</head>
+
+<body>
+
+  <div alt="" class="starter column aic jcc p32 g64" onclick="Start();animCards();">
+
+    <!-- Donation -->
+    <div class="column jcc donation g8">
+      <div class="bold tac">Faire un don</div>
+
+      <div class="column g8">
+        <div class="column bg_white p8 br8 g8 b1 p16">
+          <div class="grey">Orange Money</div>
+          <div>697830071 - Tesse brunel</div>
+        </div>
+
+        <a href="https://www.buymeacoffee.com/bruneltess6" style="text-decoration: none;color:inherit" target="_blank">
+          <div class="p16 b1 br8 row g16 aic jcc bg_white">
+            <img src="images/coffee.svg" alt="" width="23px">
+            <div>Buy me a coffee</div>
+          </div>
+        </a>
+      </div>
+
+
+    </div>
+
+
+
+    <img src="cartes_images/game_title.png" alt="">
+
+    <div class="linear-wipe">Cliquez pour commencer</div>
+
+    <div class="column g8 jcc aic">
+      <img src="cartes_images/ags.png" alt="" width="32px">
+      <div>Afrographix studio</div>
+      <div class="row aic jcc g16 socials">
+        <a href="https://www.facebook.com/AfroIndustry" target="_blank">
+          <img src="images/socials/facebook.svg" alt="">
+        </a>
+        <a href="https://www.linkedin.com/in/tesse-brunel-099061206/" target="_blank">
+          <img src="images/socials/linkedin.svg" alt="">
+        </a>
+        <a href="https://www.instagram.com/afrographix_/" target="_blank">
+          <img src="images/socials/insta.svg" alt="">
+        </a>
+        <a href="https://twitter.com/neferou_" target="_blank">
+          <img src="images/socials/twitter.svg" alt="">
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="pc_commade">
+    <!-- <img src="cartes_images/4.png" alt="" class='carte'>  -->
+  </div>
+  <div class="overlay"></div>
+  <div class="alertBox">
+    <h3 style="text-align: center; grid-column: 5 / 1">
+      Veillez choisir le type de carte a commander
+    </h3>
+    <div id="arachide">
+      <img src="cartes_images/C_1.png" alt="" class="carte" onclick="HideJcommandeCards(1)" />
+    </div>
+    <div id="Coeur">
+      <img src="cartes_images/C_2.png" alt="" class="carte" onclick="HideJcommandeCards(2)" />
+    </div>
+    <div id="Biscuit">
+      <img src="cartes_images/C_3.png" alt="" class="carte" onclick="HideJcommandeCards(3)" />
+    </div>
+    <div id="Macabo">
+      <img src="cartes_images/C_4.png" alt="" class="carte" onclick="HideJcommandeCards(4)" />
+    </div>
+  </div>
+  <a href="ui.html">
+    <div class="pronostique">
+      <div class="prono_container">
+        <img src="cartes_images/ailes.png" alt="" width="500px" class="aile2" />
+        <img src="cartes_images/gameoverLost.png" alt="" class="message_gameover" />
+        <img src="cartes_images/ailes.png" alt="" width="500px" class="aile" />
+      </div>
+    </div>
+  </a>
+  <div class="container">
+    <div class="row aic jcc g16 p16 br8 on_play_option">
+      <img src="images/add_sound.svg" alt="" title="Activer le song" id="add_sound">
+      <img src="images/remove_sound.svg" alt="" title="Desactiver le song" id="remove_sound">
+      <img src="images/replay.svg" alt="" title="Recommencer la partie" onclick="reload()">
+    </div>
+
+    <div class="banque">
+      <div class="banque_item"></div>
+      <div class="banque_item">
+        <div class="piocher" onclick="piocher()"></div>
+        <div class="cartes_banques" id="banques"></div>
+      </div>
+    </div>
+    <div class="players_pannel">
+      <div class="layout computer_side active_card">
+        <div class="showExtraCard" id="computer_extra_cards">+</div>
+        <div class="currentCard" id="computer"></div>
+      </div>
+      <div class="layout playing_table">
+        <div class="currentCard" id="center_game">
+          <div class="centerCardRederer" id="centerCardCOntainer"></div>
+        </div>
+      </div>
+      <div class="piocher_center">
+        <div>
+          <img src="cartes_images/piocher.png" alt="" width="50px" style="cursor: pointer" onclick="piocher()"
+            class="pio" title="Piocher une carte" />
+        </div>
+      </div>
+      <div class="layout player_side active_card player" id="loser">
+        <div class="showExtraCard" id="player_extra_cards">+</div>
+        <div class="extraCardContainer">
+          <div class="content" id="extra_cards_container"></div>
+        </div>
+        <div class="currentCard" id="player"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="engine/gestionPic.js"></script>
+  <script src="scripts/player.js"></script>
+  <script src="scripts/computer_play.js"></script>
+  <script src="scripts/cardGame.js"></script>
+  <script src="scripts/settings.js"></script>
+  <script src="scripts/ui_style.js"></script>
+  <script src="lib/popper.js"></script>
+  <script src="engine/comande_carte.js"></script>
+  <script src="scripts/startGameAnime.js"></script>
+
+  <script>
+    let add_sound = document.querySelector("#add_sound");
+    let remove_sound = document.querySelector("#remove_sound");
+
+    add_sound.style.display ="none";
+
+    add_sound.addEventListener("click", enable_sound);
+    remove_sound.addEventListener("click", disable_sound);
+
+    function enable_sound() {
+      for (let i = 0; i <= sounds.length - 1; i++) {
+        sounds[i].muted = false;
+      }
+      add_sound.style.display = "none";
+      remove_sound.style.display = "block";
+    }
+
+    function disable_sound() {
+      for (let i = 0; i <= sounds.length - 1; i++) {
+        sounds[i].muted = true;
+      }
+      add_sound.style.display = "block";
+      remove_sound.style.display = "none";
+    }
+  </script>
+</body>
+
+</html>
